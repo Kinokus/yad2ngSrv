@@ -40,7 +40,7 @@ export interface IApartment {
     "accessibilityPublicTransportation"?: number
     "exclusiveProperty"?: boolean
     "propertyCondition"?: string
-    "id"?: string
+    // "id"?: string
     title?: string;
     message?: string;
 }
@@ -48,6 +48,6 @@ export interface IApartment {
 export interface IApartmentDocument extends IApartment, Document {
 }
 
-export interface IUserModel extends Model<IApartment> {
+export interface IApartmentModel extends Model<IApartmentDocument> {
 }
 

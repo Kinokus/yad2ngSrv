@@ -60,7 +60,7 @@ app.use(bodyParser.json());
 
         res.send(JSON.stringify(apartmentCities))
     })
-    app.get('/cities/:city', async (req, res) => {
+    app.get('/areas/:city', async (req, res) => {
         // todo: city model
 
         const apartmentAreas = await ApartmentModel
@@ -68,6 +68,26 @@ app.use(bodyParser.json());
             .distinct('area')
             .lean()
         res.send(JSON.stringify(apartmentAreas))
+    })
+    app.get('/apartments/:city/:area', async (req, res) => {
+        // todo: city model
+
+        const apartments = await ApartmentModel
+            .find({city:{$eq:req.params.city},area:{$eq:req.params.area}})
+            .distinct('address')
+            .lean()
+        res.send(JSON.stringify(apartments))
+    })
+    app.get('/apartment/:city/:area/:address', async (req, res) => {
+        const apartment = await ApartmentModel
+            .find({
+                city:{$eq:req.params.city},
+                area:{$eq:req.params.area},
+                address:{$eq:req.params.address}
+            })
+            // .distinct('address')
+            .lean()
+        res.send(JSON.stringify(apartment))
     })
 
 
