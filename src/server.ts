@@ -80,7 +80,7 @@ app.use(bodyParser.json());
     })
     app.get('/apartment/:city/:area/:address', async (req, res) => {
         const apartment = await ApartmentModel
-            .find({
+            .findOne({
                 city:{$eq:req.params.city},
                 area:{$eq:req.params.area},
                 address:{$eq:req.params.address}
