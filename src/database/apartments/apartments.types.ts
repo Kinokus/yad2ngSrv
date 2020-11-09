@@ -1,6 +1,10 @@
 import {Document, Model} from "mongoose";
 
 export interface IApartment {
+
+    viaMakler?: boolean;
+    updated?: string;
+
     apartmentId?:string
     "summary"?: string
     "address"?: string
