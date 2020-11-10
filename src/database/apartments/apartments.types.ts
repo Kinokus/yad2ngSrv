@@ -1,61 +1,63 @@
-import {Document, Model} from "mongoose";
+import {Document, Model} from 'mongoose';
 
-export interface IApartment {
+export class Apartment {
 
-
-
-    viaMakler?: boolean;
-    updated?: string;
-    about?:string
-    featuresPresent?:any[]
-    featuresAbsent?: any[];
-    details?: any;
-
-    apartmentId?:string
-    "summary"?: string
-    "address"?: string
-    "cityArea"?: string
-    "city"?: string
-    "area"?: string
-    "rooms"?: number
-    "floor"?: string | number
-    "meters"?: number
-    "price"?: string | number
-    "description"?: string
-    "dateOfEntrance"?: {}
-    "sellerName"?: string
-    "sellerPhone1"?: string
-    "sellerPhone2"?: string
-    "images"?: string[]
-    "conditioning"?: boolean
-    "elevators"?: boolean
-    "renovated"?: boolean
-    "pandoraDoors"?: boolean
-    "tadiran"?: boolean
-    "longTerm"?: boolean
-    "bars"?: boolean
-    "accessForDisabled"?: boolean
-    "shelter"?: boolean
-    "storage"?: boolean
-    "pets"?: boolean
-    "furniture"?: boolean
-    "Entry date"?: Date
-    "houseCommittee"?: string
-    "totalFloors"?: number
-    "numberPayments"?: number
-    "parking"?: string
-    "levelQuietOnStreet"?: number
-    "streetParking"?: number
-    "proximityCommercialServices"?: number
-    "accessibilityPublicTransportation"?: number
-    "exclusiveProperty"?: boolean
-    "propertyCondition"?: string
-    // "id"?: string
-    title?: string;
-    message?: string;
+    'airConditioner': boolean = null
+    'forPartners': boolean = null
+    'kosherKitchen': boolean = null
+    'elevator': boolean = null
+    'accessibility': boolean = null
+    'warhouse': boolean = null
+    'pandorDoors': boolean = null
+    'tadiranC': boolean = null
+    'viaMakler': boolean = null;
+    'updated': string = '';
+    'about': string = ''
+    'apartmentId': string = ''
+    'summary': string = ''
+    'address': string = ''
+    'cityArea': string = ''
+    'city': string = ''
+    'area': string = ''
+    'rooms': number = -2
+    'floor': number = -2
+    'meters': number = -2
+    'price': number = -2
+    'description': string = ''
+    'dateOfEntrance': any = null
+    'sellerName': string = ''
+    'sellerPhone1': string = ''
+    'sellerPhone2': string = ''
+    'images': string[] = []
+    'conditioning': boolean = false
+    'elevators': boolean = false
+    'renovated': boolean = false
+    'pandoraDoors': boolean = false
+    'tadiran': boolean = false
+    'longTerm': boolean = false
+    'bars': boolean = false
+    'accessForDisabled': boolean = false
+    'shelter': boolean = false
+    'storage': boolean = false
+    'pets': boolean = false
+    'furniture': boolean = false
+    'entryDate': any = null
+    'houseCommittee': number = -2
+    'totalFloors': number = -2
+    'numberPayments': number = -2
+    'parking': string = ''
+    'levelQuietOnStreet': number = -2
+    'streetParking': number = -2
+    'proximityCommercialServices': number = -2
+    'accessibilityPublicTransportation': number = -2
+    'exclusiveProperty': boolean = false
+    'propertyCondition': string = ''
+    // 'id':''
+    'title': string = '';
+    'message': string = '';
 }
 
-export interface IApartmentDocument extends IApartment, Document {
+export interface IApartmentDocument extends Apartment, Document {
 }
 
 export interface IApartmentModel extends Model<IApartmentDocument> {

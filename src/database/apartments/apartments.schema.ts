@@ -2,12 +2,21 @@ import {Schema} from "mongoose";
 
 const ApartmentSchema = new Schema({
 
-    "viaMakler":{type: Boolean, required: false, default: false},
+    "viaMakler": {type: Boolean, required: false, default: false},
     "updated": {type: String, required: false, default: ''},
-    "about":{type: String, required: false, default: ''},
-    "featuresPresent":  {type: Array, required: false, default: []},
-    "featuresAbsent":  {type: Array, required: false, default: []},
-    "details":{type: Object, required: false, default: {}},
+    "about": {type: String, required: false, default: ''},
+    "featuresPresent": {type: Array, required: false, default: []},
+    "featuresAbsent": {type: Array, required: false, default: []},
+    "details": {type: Object, required: false, default: {}},
+
+    "airConditioner": {type: Boolean, required: false, default: false},
+    "forPartners": {type: Boolean, required: false, default: false},
+    "kosherKitchen": {type: Boolean, required: false, default: false},
+    "elevator": {type: Boolean, required: false, default: false},
+    "accessibility": {type: Boolean, required: false, default: false},
+    "warhouse": {type: Boolean, required: false, default: false},
+    "pandorDoors": {type: Boolean, required: false, default: false},
+    "tadiranC": {type: Boolean, required: false, default: false},
 
 
     "summary": {type: String, required: false, default: ''},
