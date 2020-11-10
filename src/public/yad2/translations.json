@@ -13,7 +13,7 @@
   "מחסן": "storage",
   "חיות מחמד": "pets",
   "ריהוט": "furniture",
-  "תאריך כניסה": "Entry date",
+  "תאריך כניסה": "entryDate",
   "ועד בית (לחודש)": "houseCommittee",
   "קומות בבנין": "totalFloors",
   "מס תשלומים": "numberPayments",
@@ -25,5 +25,8 @@
   "נגישות לתחבורה ציבורית": "accessibilityPublicTransportation",
   "נכס בבלעדיות": "exclusiveProperty",
   "מצב הנכס": "propertyCondition",
-  "מרפסות": "balconies"
+  "מרפסות": "balconies",
+  "ללא": false,
+  "לא צוין": "not set"
+
 }

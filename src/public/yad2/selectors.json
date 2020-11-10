@@ -10,11 +10,18 @@
   "floor": " .content .main_content .table dl:nth-child(2) dd",
   "meters": " .content .main_content .table dl:nth-child(3) dd",
   "price": " .content .main_content .price",
+
+  "about":".about_ad",
+
   "description": ".ad_about.info_container .wrapper_container section",
   "dateOfEntrance": ".ad_about.info_container .wrapper_container .more_data span",
-  "features": ".ad_additional_info_items .info_feature:not(.delete)",
+
+  "features": ".ad_additional_info_items .info_feature",
+  "featuresPresent": ".ad_additional_info_items .info_feature:not(.delete)",
   "featuresAbsent": ".ad_additional_info_items .info_feature.delete",
-  "detailsField": ".ad_more_details .details_wrapper li",
+
+  "detailsField": ".details_wrapper .item",
+
   "feedbackMark": ".feedback_mark",
   "sellerName": ".contact_seller_light_box .seller .name",
   "sellerPhone": ".contact_seller_light_box .middle_line div",

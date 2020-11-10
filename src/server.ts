@@ -11,6 +11,7 @@ import {IApartment} from "./database/apartments/apartments.types";
 
 const cheerio = require('cheerio')
 const selectors = require('./public/yad2/selectors.json')
+const translations = require('./public/yad2/translations.json')
 
 const app = express();
 const port = 9191;
@@ -61,33 +62,52 @@ app.use(bodyParser.json());
         const $ = cheerio.load(reqBody.body)
 
 
-
         const apartment: IApartment = {}
+
 
         apartment.updated = $(selectors.updated).text()
         apartment.summary = $(selectors.summary).text()
         apartment.viaMakler = apartment.summary.includes('(תיווך)')
 
 
+        apartment.city = $(selectors.city).text()
+        apartment.area = $(selectors.area).text().replace(/,$/, '')
+
+        apartment.meters = $(selectors.meters).text()
+        apartment.floor = $(selectors.floor).text()
+        apartment.rooms = $(selectors.rooms).text()
+
+        apartment.price = $(selectors.price).text().replace(/[^0-9]/gim, '')
+
+        apartment.about = $(selectors.about).text()
+
+        apartment.featuresPresent = []
+        $(selectors.featuresPresent).each((idx: number, el: Element) => {
+            apartment.featuresPresent.push($(el).attr('id'))
+        })
+        apartment.featuresAbsent = []
+        $(selectors.featuresAbsent).each((idx: number, el: Element) => {
+            apartment.featuresAbsent.push($(el).attr('id'))
+        })
+
+        apartment.details = {}
+        $(selectors.detailsField).each((idx: number, el: Element) => {
+            const fieldName = translations[$(el).find('.title').text()]
+            apartment.details[fieldName] = $(el).find('.value').text()
+        })
+
+
+        apartment.details['arnona'] = apartment.details['arnona']?.replace(/[^0-9]/gim, '')
+        apartment.details['arnona'] = apartment.details['arnona'] || false
+
+        apartment.details['houseCommittee'] = apartment.details['houseCommittee']?.replace(/[^0-9]/gim, '')
+        apartment.details['houseCommittee'] = apartment.details['houseCommittee'] || false
+
+        apartment.details['totalFloors'] = apartment.details['totalFloors']?.replace(/[^0-9]/gim, '')
+        apartment.details['totalFloors'] = apartment.details['totalFloors'] || false
+
         console.log(apartment);
-        // console.log(selectors);
-        // console.log($(".content .top .right").text());
-        // console.log($(".content .top .left").text());
 
-        // $('h2.title').text('Hello there!')
-        // $('h2').addClass('welcome')
-
-        // $.html()
-        // const apartment = reqBody['apartment']
-        // // await ApartmentModel.create(apartment)
-        // await ApartmentModel.updateOne({apartmentId: apartment.apartmentId}, apartment, {upsert: true})
-        // const body = JSON.stringify({
-        //     reason: 'added successfully',
-        //     status: 'success',
-        //     id: apartment.id
-        // })
-        // res.send(body)
-        // logger.info(JSON.stringify(req.body))
     })
 
 

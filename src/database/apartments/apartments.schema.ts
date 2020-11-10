@@ -1,6 +1,15 @@
 import {Schema} from "mongoose";
 
 const ApartmentSchema = new Schema({
+
+    viaMakler:{type: Boolean, required: false, default: false},
+    updated: {type: String, required: false, default: ''},
+    about:{type: String, required: false, default: ''},
+    featuresPresent:  {type: Array, required: false, default: []},
+    featuresAbsent:  {type: Array, required: false, default: []},
+    details:{type: Object, required: false, default: {}},
+
+
     summary: {type: String, required: false, default: ''},
     apartmentId: {type: String, required: false, default: ''},
     "address": {type: String, required: false, default: ''},
