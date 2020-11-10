@@ -2,16 +2,16 @@ import {Schema} from "mongoose";
 
 const ApartmentSchema = new Schema({
 
-    viaMakler:{type: Boolean, required: false, default: false},
-    updated: {type: String, required: false, default: ''},
-    about:{type: String, required: false, default: ''},
-    featuresPresent:  {type: Array, required: false, default: []},
-    featuresAbsent:  {type: Array, required: false, default: []},
-    details:{type: Object, required: false, default: {}},
+    "viaMakler":{type: Boolean, required: false, default: false},
+    "updated": {type: String, required: false, default: ''},
+    "about":{type: String, required: false, default: ''},
+    "featuresPresent":  {type: Array, required: false, default: []},
+    "featuresAbsent":  {type: Array, required: false, default: []},
+    "details":{type: Object, required: false, default: {}},
 
 
-    summary: {type: String, required: false, default: ''},
-    apartmentId: {type: String, required: false, default: ''},
+    "summary": {type: String, required: false, default: ''},
+    "apartmentId": {type: String, required: false, default: ''},
     "address": {type: String, required: false, default: ''},
     "cityArea": {type: String, required: false, default: ''},
     "city": {type: String, required: false, default: ''},
@@ -50,8 +50,8 @@ const ApartmentSchema = new Schema({
     "exclusiveProperty": {type: Boolean, required: false, default: false},
     "propertyCondition": {type: String, required: false, default: ''},
     "id": {type: String, required: false, default: ''},
-    title: {type: String, required: false, default: ''},
-    message: {type: String, required: false, default: ''},
+    "title": {type: String, required: false, default: ''},
+    "message": {type: String, required: false, default: ''},
 
 })
 
