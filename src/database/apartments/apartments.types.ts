@@ -3,6 +3,7 @@ import {Document, Model} from 'mongoose';
 export class Apartment {
 
     'airConditioner': boolean = null
+    'arnona':number = -2
     'forPartners': boolean = null
     'kosherKitchen': boolean = null
     'elevator': boolean = null
@@ -20,6 +21,7 @@ export class Apartment {
     'city': string = ''
     'area': string = ''
     'rooms': number = -2
+    'balconies': number = -2
     'floor': number = -2
     'meters': number = -2
     'price': number = -2
@@ -45,7 +47,7 @@ export class Apartment {
     'houseCommittee': number = -2
     'totalFloors': number = -2
     'numberPayments': number = -2
-    'parking': string = ''
+    'parking': number = -2
     'levelQuietOnStreet': number = -2
     'streetParking': number = -2
     'proximityCommercialServices': number = -2
@@ -55,6 +57,8 @@ export class Apartment {
     // 'id':''
     'title': string = '';
     'message': string = '';
+    video: string ='';
+    entrance: string ='';
 }
 
 export interface IApartmentDocument extends Apartment, Document {

@@ -29,5 +29,7 @@
   "sellerPhone1": "#lightbox_phone_number_1",
   "photo": "img.advertiser_img",
   "hasPhoto": ".has_images",
-  "hasVideo": ".y2i_PlayButton"
+  "hasVideo": ".y2i_PlayButton",
+  "video": "#myVideo"
+
 }

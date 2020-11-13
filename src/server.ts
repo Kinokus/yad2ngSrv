@@ -27,8 +27,6 @@ const snakeToCamel = (str: string) => {
 (async () => {
 
     connect();
-
-
     /** yad2 */
     app.use('/selectors', express.static(path.join(__dirname, 'public/yad2/selectors.json')))
     app.use('/translations', express.static(path.join(__dirname, 'public/yad2/translations.json')))
@@ -41,6 +39,10 @@ const snakeToCamel = (str: string) => {
         const apartmentIdsFiltered = apartmentIds.filter((ai: any) => {
             return (apartmentIdFound.indexOf(ai) === -1);
         })
+
+
+        // todo: TEMPORARY
+        // res.send(JSON.stringify(apartmentIds))
         res.send(JSON.stringify(apartmentIdsFiltered))
         logger.info(`${apartmentIdsFiltered.length} - ${apartmentIds.length}`)
 
@@ -55,6 +57,7 @@ const snakeToCamel = (str: string) => {
             status: 'success',
             id: apartment.id
         })
+
         res.send(body)
         logger.info(body)
     })
@@ -63,6 +66,7 @@ const snakeToCamel = (str: string) => {
         // console.log(reqBody.body);
 
         const $ = cheerio.load(reqBody.body)
+        const apartmentId = reqBody.apartmentId
 
 
         const apartment: Apartment = new Apartment()
@@ -73,6 +77,7 @@ const snakeToCamel = (str: string) => {
 
 
         apartment.city = $(selectors.city).text()
+        apartment.address = $(selectors.address).text()
         apartment.area = $(selectors.area).text().replace(/,$/, '')
 
         apartment.meters = $(selectors.meters).text()
@@ -105,60 +110,55 @@ const snakeToCamel = (str: string) => {
             apartment[featureName] = false
         })
 
-
         $(selectors.detailsField).each((idx: number, el: Element) => {
-            const fieldName = translations[$(el).find('.title').text()]
+
+            const rawFieldName = $(el).find('.title').text()
+            const rawFieldValue = $(el).find('.value').text()
+
+            const fieldName = translations[rawFieldName] !== undefined ? translations[rawFieldName] : rawFieldName
+            const fieldValue = translations[rawFieldValue] !== undefined ? translations[rawFieldValue] : rawFieldValue
+
+
             // @ts-ignore
             if (apartment[fieldName] === undefined)
                 console.log(fieldName);
 
             // @ts-ignore
-            apartment[fieldName] = $(el).find('.value').text()
+            apartment[fieldName] = fieldValue
         })
 
 
-        // apartment.details['arnona'] = apartment.details['arnona']?.replace(/[^0-9]/gim, '')
-        // apartment.details['arnona'] = apartment.details['arnona'] || false
-        //
-        // apartment.details['houseCommittee'] = apartment.details['houseCommittee']?.replace(/[^0-9]/gim, '')
-        // apartment.details['houseCommittee'] = apartment.details['houseCommittee'] || false
-        //
-        // apartment.details['totalFloors'] = apartment.details['totalFloors']?.replace(/[^0-9]/gim, '')
-        // apartment.details['totalFloors'] = apartment.details['totalFloors'] || false
-
-        // for (const [key, value] of Object.entries(apartment.details)) {
-        //     // console.log(`${key}: ${value}`);
-        //     try {
-        //         // @ts-ignore
-        //         apartment[key] = value
-        //     } catch (e) {
-        //         console.log(e);
-        //     }
-        // }
-
-        // apartment.featuresPresent.forEach(apfp => {
-        //     try {
-        //         // @ts-ignore
-        //         apartment[apfp] = true
-        //     } catch (e) {
-        //         console.log(e);
-        //     }
-        // })
-        // apartment.featuresAbsent.forEach(apfa => {
-        //     try {
-        //         // @ts-ignore
-        //         apartment[apfa] = false
-        //     } catch (e) {
-        //         console.log(e);
-        //     }
-        // })
-
-        // document.querySelectorAll("#lightbox_phone_number_0 > a")
-        // document.querySelectorAll("[id*=img_slide_container]")
+        apartment.sellerPhone1 = $(selectors.sellerPhone0).text().replace(/[^0-9]/gim, '')
+        apartment.sellerPhone2 = $(selectors.sellerPhone1).text().replace(/[^0-9]/gim, '')
+        apartment.sellerName = $(selectors.sellerName).text().trim()
 
 
-        console.log(`------------------------------------------`);
-        console.log(apartment);
+        apartment.images = Array.from($(selectors.photo)).map(el => {
+            return $(el).attr('src')
+        })
+
+        apartment.video = $(selectors.video).attr('src')
+
+        // @ts-ignore
+        apartment.houseCommittee = apartment.houseCommittee.replace(/[^0-9]/gim, '') - 0
+
+
+        // @ts-ignore
+        apartment.arnona = (apartment.arnona + '')?.replace(/[^0-9]/gim, '')
+
+        apartment.apartmentId = apartmentId
+
+
+        // console.log(apartment);
+        const dbResp =
+            await ApartmentModel.updateOne(
+                {apartmentId: apartment.apartmentId, address: apartment.address},
+                apartment,
+                {upsert: true})
+
+        console.log(dbResp);
+
+        res.send({status: 'ok'})
 
     })
 
@@ -187,7 +187,6 @@ const snakeToCamel = (str: string) => {
 
         const apartments = await ApartmentModel
             .find({city: {$eq: req.params.city}, area: {$eq: req.params.area}})
-            .distinct('address')
             .lean()
         res.send(JSON.stringify(apartments))
     })
